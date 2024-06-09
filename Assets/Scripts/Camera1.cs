@@ -30,31 +30,33 @@ public class Camera1
     // Update is called once per frame
     void Update()
     {
-        Ray();
-        ScrollAction();
+        if (Time.timeScale == 0)
+        {
+            Ray();
+            ScrollAction();
 
 
-        float xRot = Input.GetAxis("Mouse X") * Ysensityvity;
-        float yRot = Input.GetAxis("Mouse Y") * Xsensityvity;
+            float xRot = Input.GetAxis("Mouse X") * Ysensityvity;
+            float yRot = Input.GetAxis("Mouse Y") * Xsensityvity;
 
-        cameraRot *= Quaternion.Euler(-yRot, 0, 0);
-        // gunRot *= Quaternion.Euler(-yRot , 0, 0);
-        characterRot *= Quaternion.Euler(0, xRot, 0);
+            cameraRot *= Quaternion.Euler(-yRot, 0, 0);
+            // gunRot *= Quaternion.Euler(-yRot , 0, 0);
+            characterRot *= Quaternion.Euler(0, xRot, 0);
 
-        //UpdateÇÃíÜÇ≈çÏê¨ÇµÇΩä÷êîÇåƒÇ‘
-        cameraRot = ClampRotation(cameraRot, -90, 90);
-        gunRot = ClampRotation(cameraRot, -30, 10);
+            //UpdateÇÃíÜÇ≈çÏê¨ÇµÇΩä÷êîÇåƒÇ‘
+            cameraRot = ClampRotation(cameraRot, -90, 90);
+            gunRot = ClampRotation(cameraRot, -30, 10);
 
-        cam.transform.localRotation = cameraRot;
-        //Debug.Log(cameraRot.eulerAngles.x);
-        _Gun.transform.localRotation = gunRot;
+            cam.transform.localRotation = cameraRot;
+            //Debug.Log(cameraRot.eulerAngles.x);
+            _Gun.transform.localRotation = gunRot;
 
-        transform.localRotation = characterRot;
-
-
-        UpdateCursorLock();
+            transform.localRotation = characterRot;
 
 
+            UpdateCursorLock();
+
+        }
     }
 
     private void FixedUpdate()
