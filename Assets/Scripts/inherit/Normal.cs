@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class Normal : Vehicle,IDisplayable
+public class Normal : Vehicle,IDamageable
 {
     Rigidbody _Rb;
 
@@ -25,7 +26,7 @@ public class Normal : Vehicle,IDisplayable
         {
             _PivotSpring = _PivotHinge.spring;
             _PivotHinge.useSpring = true;
-            _GunIntervalTimer = new GameTimer(1.0f);
+            _GunIntervalTimer = new GameTimer(_GunInterval);
         }
     }
 
@@ -34,7 +35,7 @@ public class Normal : Vehicle,IDisplayable
     {
         if (_BLHinge != null && _BRHinge != null && _PivotHinge != null)
         {
-            Move(25, 500, 1000, 100);
+            Move(25, 500, _MoveSpeed, 100);
 
             _GunIntervalTimer.UpdateTimer();
             if (Input.GetMouseButton(0))
@@ -53,7 +54,7 @@ public class Normal : Vehicle,IDisplayable
 
     }
 
-    protected void Move(int maxPivotAngle, int motorForce, int targetSpeed, int cVFSpeed)
+    protected void Move(int maxPivotAngle, int motorForce, int moveSpeed, int cVFSpeed)
     {
         _PivotSpring.targetPosition = Input.GetAxis("Horizontal") * maxPivotAngle;
         _PivotHinge.spring = _PivotSpring;
@@ -61,18 +62,33 @@ public class Normal : Vehicle,IDisplayable
 
         float curveVelocityFade = (1 + Mathf.Abs(_PivotSpring.targetPosition) / cVFSpeed);
 
-        _BRMotor.targetVelocity = Input.GetAxis("Vertical") * targetSpeed / curveVelocityFade;
+        _BRMotor.targetVelocity = Input.GetAxis("Vertical") * moveSpeed / curveVelocityFade;
         _BRMotor.force = motorForce;
         _BRHinge.motor = _BRMotor;
 
-        _BLMotor.targetVelocity = Input.GetAxis("Vertical") * targetSpeed / curveVelocityFade;
+        _BLMotor.targetVelocity = Input.GetAxis("Vertical") * moveSpeed / curveVelocityFade;
         _BLMotor.force = motorForce;
         _BLHinge.motor = _BLMotor;
     }
 
     public override void disInfo()
     {
-        Debug.Log("Normalé‘óºÇ≈Ç∑");
+        Debug.Log(_Name+"é‘óº HP: "+_Hp);
     }
 
+    public void AddDamage(int damage)
+    {
+        _Hp -= damage;
+
+        if(_Hp <= 0)
+        {
+            Joint[] hinges= GetComponents<Joint>();
+
+            foreach (Joint joint in hinges)
+            {
+                Destroy(joint);
+            }
+            Destroy(gameObject,5);
+        }
+    }
 }

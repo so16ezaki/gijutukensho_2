@@ -51,7 +51,7 @@ public class ViewManager : MonoBehaviour
                 break;
         }
 
-        Debug.Log(_sceneState);
+
     }
     private void TitleScene()
     {

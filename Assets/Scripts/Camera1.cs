@@ -30,7 +30,7 @@ public class Camera1
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale == 0)
+        if (Time.timeScale != 0)
         {
             Ray();
             ScrollAction();

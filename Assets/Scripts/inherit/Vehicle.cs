@@ -5,12 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public abstract class Vehicle : MonoBehaviour,IDisplayable
 {
-    private int _Hp;
-    private int _MoveSpeed;
-    private int _GunInterval;
-    private string _Name;
+    [SerializeField]
+    protected int _Hp;
+    [SerializeField]
+    protected int _MoveSpeed;
+    [SerializeField]
+    protected float _GunInterval;
+    [SerializeField]
+    protected string _Name;
 
-    GameTimer _GunIntervalTimer;
 
     public abstract void disInfo();
 

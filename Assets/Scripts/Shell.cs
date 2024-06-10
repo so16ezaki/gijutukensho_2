@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shell : MonoBehaviour
@@ -20,8 +21,9 @@ public class Shell : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log(collision.gameObject.name);
         Destroy(gameObject);
         Instantiate(effect,transform.position,transform.rotation);
+        Debug.Log(collision.gameObject.name);
+        collision.gameObject.GetComponentInParent<IDamageable>()?.AddDamage(1);
     }
 }
