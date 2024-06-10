@@ -12,7 +12,7 @@ public abstract class Vehicle : MonoBehaviour,IDisplayable
     [SerializeField]
     protected float _GunInterval;
     [SerializeField]
-    protected string _Name;
+    protected string _TankName;
 
 
     public abstract void disInfo();

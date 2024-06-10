@@ -23,7 +23,6 @@ public class Shell : MonoBehaviour
     {
         Destroy(gameObject);
         Instantiate(effect,transform.position,transform.rotation);
-        Debug.Log(collision.gameObject.name);
         collision.gameObject.GetComponentInParent<IDamageable>()?.AddDamage(1);
     }
 }
