@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class Tank : Vehicle, IDamageable
+public class TankModel : Vehicle
 {
     Rigidbody _Rb;
 
@@ -19,15 +19,18 @@ public class Tank : Vehicle, IDamageable
     [SerializeField] GameObject _Gun;
 
     [SerializeField] int _MaxPivotAngle = 25;
-    [SerializeField] int _MotorForce = 500;
     [SerializeField] int _CVFSpeed = 100;
 
 
     GameTimer _GunIntervalTimer;
     // Start is called before the first frame update
 
-    public void Initialization()
+    public override void Initialization(TankPM.VehicleEntity vehicleEntity)
     {
+        _Hp = vehicleEntity.Hp;
+        _MoveSpeed = vehicleEntity.MoveSpeed;
+        _MoveForce = vehicleEntity.MoveForce;
+        _VehicleName = vehicleEntity.TankName;
 
         if (_BLHinge != null && _BRHinge != null && _PivotHinge != null)
         {
@@ -43,8 +46,6 @@ public class Tank : Vehicle, IDamageable
 
 
         _GunIntervalTimer.UpdateTimer();
-        if (Input.GetMouseButton(0))
-            Shoot();
 
     }
 
@@ -72,21 +73,21 @@ public class Tank : Vehicle, IDamageable
             float targetVelocity = vertical * _MoveSpeed / curveVelocityFade;
 
             _BRMotor.targetVelocity = targetVelocity;
-            _BRMotor.force = _MotorForce;
+            _BRMotor.force = _MoveForce;
             _BRHinge.motor = _BRMotor;
 
             _BLMotor.targetVelocity = targetVelocity;
-            _BLMotor.force = _MotorForce;
+            _BLMotor.force = _MoveForce;
             _BLHinge.motor = _BLMotor;
         }
     }
 
     public override void disInfo()
     {
-        Debug.Log(_TankName + "ŽÔ—¼ HP: " + _Hp);
+        Debug.Log(_VehicleName + "ŽÔ—¼ HP: " + _Hp);
     }
 
-    public void AddDamage(int damage)
+    public override void AddDamage(int damage)
     {
         _Hp -= damage;
 

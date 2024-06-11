@@ -14,13 +14,13 @@ public class ViewManager : MonoBehaviour
     [SerializeField]
     private GameObject _EndView;
 
-    enum _SceneState
+    enum _ViewState
     {
-        TITLE_SCENE,
-        PLAY_SCENE,
-        END_SCENE
+        TITLE_View,
+        PLAY_View,
+        END_View
     }
-    _SceneState _sceneState = _SceneState.TITLE_SCENE;
+    _ViewState _sceneState = _ViewState.TITLE_View;
 
     // Start is called before the first frame update
     void Start()
@@ -34,33 +34,44 @@ public class ViewManager : MonoBehaviour
 
         switch (_sceneState)
         {
-            case _SceneState.TITLE_SCENE:
-                TitleScene();
+            case _ViewState.TITLE_View:
+                UpdateTitleScene();
                 if (Input.GetKeyDown(KeyCode.Space))
-                    ChangeState(_SceneState.PLAY_SCENE);
+                {
+                    ChangeState(_ViewState.PLAY_View);
+                }
                 break;
-            case _SceneState.PLAY_SCENE:
-                PlayScene();
+            case _ViewState.PLAY_View:
+                UpdatePlayScene();
                 if (Input.GetKeyDown(KeyCode.Alpha1))
-                    ChangeState(_SceneState.END_SCENE);
+                {
+                    ChangeState(_ViewState.END_View);
+                }
                 break;
-            case _SceneState.END_SCENE:
-                EndScene();
+            case _ViewState.END_View:
+                UpdateEndScene();
                 if (Input.GetKeyDown(KeyCode.Alpha2))
-                    ChangeState(_SceneState.TITLE_SCENE);
+                {
+                    ChangeState(_ViewState.TITLE_View);
+                }
                 break;
         }
 
 
     }
-    private void TitleScene()
+    private void UpdateTitleScene()
     {
         Time.timeScale = 0;
         _TitleView.SetActive(true);
         _PlayView.SetActive(false);
         _EndView.SetActive(false);
     }
-    private void PlayScene()
+
+
+   
+    
+
+    private void UpdatePlayScene()
     {
         Time.timeScale = 1;
         _PlayView.SetActive(true);
@@ -68,7 +79,7 @@ public class ViewManager : MonoBehaviour
         _EndView.SetActive(false);
     }
 
-    private void EndScene()
+    private void UpdateEndScene()
     {
         Time.timeScale = 0;
         _EndView.SetActive(true);
@@ -76,7 +87,7 @@ public class ViewManager : MonoBehaviour
         _PlayView.SetActive(false);
     }
 
-    private void ChangeState(_SceneState next)
+    private void ChangeState(_ViewState next)
     {
         _sceneState = next;
     }

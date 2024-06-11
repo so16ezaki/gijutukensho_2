@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera1
-    : MonoBehaviour
+public class Camera1 : MonoBehaviour
 {
     float x, z;
 
 
     //float speed = 0.1f;
 
-    public GameObject cam;
-    public GameObject _Gun;
+    public GameObject _CamPivot;
+    public GameObject _GunPivot;
     Quaternion cameraRot, characterRot, gunRot;
     float Xsensityvity = 3f, Ysensityvity = 3f;
 
@@ -22,8 +21,8 @@ public class Camera1
     // Start is called before the first frame update
     void Start()
     {
-        cameraRot = cam.transform.localRotation;
-        gunRot = _Gun.transform.localRotation;
+        cameraRot = _CamPivot.transform.localRotation;
+        gunRot = _GunPivot.transform.localRotation;
         characterRot = transform.localRotation;
     }
 
@@ -47,9 +46,9 @@ public class Camera1
             cameraRot = ClampRotation(cameraRot, -90, 90);
             gunRot = ClampRotation(cameraRot, -30, 10);
 
-            cam.transform.localRotation = cameraRot;
+            _CamPivot.transform.localRotation = cameraRot;
             //Debug.Log(cameraRot.eulerAngles.x);
-            _Gun.transform.localRotation = gunRot;
+            _GunPivot.transform.localRotation = gunRot;
 
             transform.localRotation = characterRot;
 
@@ -112,11 +111,11 @@ public class Camera1
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        int enemyLayer = 1 << 8;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer))
+        int VehicleLayer = 1 << 8;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity,VehicleLayer))
         {
             //Rayが当たったオブジェクトの名前と位置情報をログに表示する
-            //Debug.Log(hit.collider.gameObject.name);
+            Debug.Log(hit.collider.gameObject.name);
             //Debug.Log(hit.collider.gameObject.transform.position);
 
             hit.collider.GetComponentInParent<IDisplayable>().disInfo();
