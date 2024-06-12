@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDisplayable  
 {
-    public void disInfo();
+    public void disInfo(TankPM.VehicleEntity vehicleEntity);
 }

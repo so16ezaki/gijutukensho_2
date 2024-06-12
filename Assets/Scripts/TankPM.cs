@@ -16,9 +16,7 @@ public class TankPM : ScriptableObject
         [SerializeField]
         private string _TankName;
         [SerializeField]
-        private GameObject _TankGameObj;
-        [SerializeField]
-        private int _Hp;
+        private int _MaxHp;
         [SerializeField]
         private int _MoveSpeed;
         [SerializeField]
@@ -31,12 +29,15 @@ public class TankPM : ScriptableObject
         private int _CVFSpeed;
 
         public string TankName { get => _TankName; }
-        public GameObject TankGameObj { get => _TankGameObj; }
-        public int Hp { get => _Hp; }
+        public int MaxHp { get => _MaxHp; }
         public int MoveSpeed { get => _MoveSpeed; }
         public int MoveForce { get => _MoveForce; }
         public float GunInterval { get => _GunInterval; }
         public int MaxPivotAngle { get => _MaxPivotAngle; }
         public int CVFSpeed { get => _CVFSpeed; }
+
+        
+
+
     }
 }

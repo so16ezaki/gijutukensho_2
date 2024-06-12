@@ -16,11 +16,16 @@ public class Camera1 : MonoBehaviour
 
     bool cursorLock = true;
 
+    TankPM.VehicleEntity tankEntity;
+
     //変数の宣言(角度の制限用)
 
     // Start is called before the first frame update
     void Start()
     {
+        TankPM tankPM = (TankPM)Resources.Load<TankPM>("TankPM");
+        tankEntity = tankPM.vehicles[0];
+
         cameraRot = _CamPivot.transform.localRotation;
         gunRot = _GunPivot.transform.localRotation;
         characterRot = transform.localRotation;
@@ -115,10 +120,10 @@ public class Camera1 : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity,VehicleLayer))
         {
             //Rayが当たったオブジェクトの名前と位置情報をログに表示する
-            Debug.Log(hit.collider.gameObject.name);
+            //Debug.Log(hit.collider.gameObject.name);
             //Debug.Log(hit.collider.gameObject.transform.position);
 
-            hit.collider.GetComponentInParent<IDisplayable>().disInfo();
+            hit.collider.GetComponentInParent<IDisplayable>().disInfo(tankEntity);
 
         }
     }

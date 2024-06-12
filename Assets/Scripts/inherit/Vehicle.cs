@@ -6,22 +6,14 @@ using UnityEngine;
 public abstract class Vehicle : MonoBehaviour,IDisplayable,IDamageable
 {
     [SerializeField]
-    protected int _Hp;
-    [SerializeField]
-    protected int _MoveSpeed;
-    [SerializeField]
-    protected int _MoveForce;
-    [SerializeField]
-    protected float _GunInterval;
-    [SerializeField]
-    protected string _VehicleName;
+    protected int _CurrentHp;
 
     
     public abstract void Initialization(TankPM.VehicleEntity vehicleEntity);
 
     public abstract void AddDamage(int damage);
 
-    public abstract void disInfo();
+    public abstract void disInfo(TankPM.VehicleEntity vehicleEntity);
 
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class TankModel : Vehicle
+public class MTankBehaviour : Vehicle
 {
     Rigidbody _Rb;
 
@@ -18,32 +18,28 @@ public class TankModel : Vehicle
     [SerializeField] GameObject _Shell;
     [SerializeField] GameObject _Gun;
 
-    [SerializeField] int _MaxPivotAngle = 25;
-    [SerializeField] int _CVFSpeed = 100;
 
 
+    
     GameTimer _GunIntervalTimer;
     // Start is called before the first frame update
 
     public override void Initialization(TankPM.VehicleEntity vehicleEntity)
     {
-        _Hp = vehicleEntity.Hp;
-        _MoveSpeed = vehicleEntity.MoveSpeed;
-        _MoveForce = vehicleEntity.MoveForce;
-        _VehicleName = vehicleEntity.TankName;
+        _CurrentHp = vehicleEntity.MaxHp;
 
         if (_BLHinge != null && _BRHinge != null && _PivotHinge != null)
         {
             _PivotSpring = _PivotHinge.spring;
             _PivotHinge.useSpring = true;
-            _GunIntervalTimer = new GameTimer(_GunInterval);
+            _GunIntervalTimer = new GameTimer(vehicleEntity.GunInterval);
+            
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
 
         _GunIntervalTimer.UpdateTimer();
 
@@ -60,38 +56,40 @@ public class TankModel : Vehicle
 
     }
 
-    public void Move(float horizontal, float vertical)
+    public void Move(float horizontal, float vertical, TankPM.VehicleEntity vehicleEntity)
     {
+
+
         if (_BLHinge != null && _BRHinge != null && _PivotHinge != null)
         {
 
-            _PivotSpring.targetPosition = horizontal * _MaxPivotAngle;
+            _PivotSpring.targetPosition = horizontal * vehicleEntity.MaxPivotAngle;
             _PivotHinge.spring = _PivotSpring;
             _PivotHinge.useSpring = true;
 
-            float curveVelocityFade = (1 + Mathf.Abs(_PivotSpring.targetPosition) / _CVFSpeed);
-            float targetVelocity = vertical * _MoveSpeed / curveVelocityFade;
+            float curveVelocityFade = (1 + Mathf.Abs(_PivotSpring.targetPosition) / vehicleEntity.CVFSpeed);
+            float targetVelocity = vertical * vehicleEntity.MoveSpeed / curveVelocityFade;
 
             _BRMotor.targetVelocity = targetVelocity;
-            _BRMotor.force = _MoveForce;
+            _BRMotor.force = vehicleEntity.MoveForce;
             _BRHinge.motor = _BRMotor;
 
             _BLMotor.targetVelocity = targetVelocity;
-            _BLMotor.force = _MoveForce;
+            _BLMotor.force = vehicleEntity.MoveForce;
             _BLHinge.motor = _BLMotor;
         }
     }
 
-    public override void disInfo()
+    public override void disInfo(TankPM.VehicleEntity vehicleEntity)
     {
-        Debug.Log(_VehicleName + "ŽÔ—¼ HP: " + _Hp);
+        Debug.Log(vehicleEntity.TankName + "ŽÔ—¼ HP: " + _CurrentHp);
     }
 
     public override void AddDamage(int damage)
     {
-        _Hp -= damage;
+        _CurrentHp -= damage;
 
-        if (_Hp <= 0)
+        if (_CurrentHp <= 0)
         {
             Joint[] joints = GetComponentsInChildren<Joint>();
 

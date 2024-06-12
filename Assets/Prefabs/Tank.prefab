@@ -459,18 +459,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529306c8fcc92f242b43f800b2069db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Hp: 0
-  _MoveSpeed: 0
-  _MoveForce: 0
-  _GunInterval: 0
-  _VehicleName: 
+  _CurrentHp: 0
+  _GunInterval: 2
   _BRHinge: {fileID: 8028124949495090294}
   _BLHinge: {fileID: 1193580947242431504}
   _PivotHinge: {fileID: 6058707677148788940}
   _Shell: {fileID: 8222161213841954549, guid: b57290c702fad5b43a30279b40afc936, type: 3}
   _Gun: {fileID: 3550082450756996804}
-  _MaxPivotAngle: 25
-  _CVFSpeed: 500
 --- !u!1 &5959571600366849001
 GameObject:
   m_ObjectHideFlags: 0
