@@ -27,6 +27,7 @@ public class MTankBehaviour : Vehicle
     public override void Initialization(TankPM.VehicleEntity vehicleEntity)
     {
         _CurrentHp = vehicleEntity.MaxHp;
+        _EntityId = vehicleEntity.EntitiyId;
 
         if (_BLHinge != null && _BRHinge != null && _PivotHinge != null)
         {
@@ -82,23 +83,24 @@ public class MTankBehaviour : Vehicle
 
     public override void disInfo(TankPM.VehicleEntity vehicleEntity)
     {
-        Debug.Log(vehicleEntity.TankName + "ŽÔ—¼ HP: " + _CurrentHp);
+        Debug.Log(vehicleEntity.TankName + "ŽÔ—¼ HP: " + CurrentHp);
     }
 
     public override void AddDamage(int damage)
     {
         _CurrentHp -= damage;
 
-        if (_CurrentHp <= 0)
+        if (CurrentHp <= 0)
         {
             Joint[] joints = GetComponentsInChildren<Joint>();
 
             foreach (HingeJoint joint in joints)
             {
-                Debug.Log(joint.name);
                 Destroy(joint);
             }
+            IsDead = true;
             Destroy(gameObject, 5);
         }
     }
+  
 }

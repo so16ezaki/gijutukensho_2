@@ -16,7 +16,8 @@ public class Camera1 : MonoBehaviour
 
     bool cursorLock = true;
 
-    TankPM.VehicleEntity tankEntity;
+
+    List<TankPM.VehicleEntity> _Entitys;
 
     //変数の宣言(角度の制限用)
 
@@ -24,7 +25,7 @@ public class Camera1 : MonoBehaviour
     void Start()
     {
         TankPM tankPM = (TankPM)Resources.Load<TankPM>("TankPM");
-        tankEntity = tankPM.vehicles[0];
+        _Entitys = tankPM.vehicles;
 
         cameraRot = _CamPivot.transform.localRotation;
         gunRot = _GunPivot.transform.localRotation;
@@ -122,8 +123,9 @@ public class Camera1 : MonoBehaviour
             //Rayが当たったオブジェクトの名前と位置情報をログに表示する
             //Debug.Log(hit.collider.gameObject.name);
             //Debug.Log(hit.collider.gameObject.transform.position);
+            int entityId = hit.collider.GetComponentInParent<Vehicle>().EntityId;
 
-            hit.collider.GetComponentInParent<IDisplayable>().disInfo(tankEntity);
+            hit.collider.GetComponentInParent<IDisplayable>().disInfo(_Entitys[entityId]);
 
         }
     }

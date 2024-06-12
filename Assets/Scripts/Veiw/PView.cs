@@ -4,8 +4,9 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class ViewManager : MonoBehaviour
+public class PView : MonoBehaviour
 {
     [SerializeField]
     private GameObject _TitleView;
@@ -13,6 +14,12 @@ public class ViewManager : MonoBehaviour
     private GameObject _PlayView;
     [SerializeField]
     private GameObject _EndView;
+    [SerializeField]
+    private PEnemy _PEnemy;
+
+
+    GameTimer _TitleTimer,_PlayTimer,_EndTimer;
+    float a = 0;
 
     enum _ViewState
     {
@@ -25,6 +32,9 @@ public class ViewManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _TitleTimer = new GameTimer();
+        _PlayTimer = new GameTimer(3);
+        _EndTimer = new GameTimer(5);
     }
 
     // Update is called once per frame
@@ -43,25 +53,26 @@ public class ViewManager : MonoBehaviour
                 break;
             case _ViewState.PLAY_View:
                 UpdatePlayScene();
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                if (_PEnemy.isEndGame)
                 {
                     ChangeState(_ViewState.END_View);
                 }
                 break;
             case _ViewState.END_View:
                 UpdateEndScene();
-                if (Input.GetKeyDown(KeyCode.Alpha2))
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    ChangeState(_ViewState.TITLE_View);
+                    SceneManager.LoadScene("PlayScene");
                 }
                 break;
         }
 
-
+        Debug.Log(a);
     }
     private void UpdateTitleScene()
     {
-        Time.timeScale = 0;
+        _TitleTimer.UpdateTimer();
+        _TitleView.GetComponentInChildren<Text>().color = new Color(1, 0, 0, Mathf.Abs(Mathf.Sin(_TitleTimer.ElaspedTime)));
         _TitleView.SetActive(true);
         _PlayView.SetActive(false);
         _EndView.SetActive(false);
@@ -73,6 +84,7 @@ public class ViewManager : MonoBehaviour
 
     private void UpdatePlayScene()
     {
+        _PlayTimer.UpdateTimer();
         Time.timeScale = 1;
         _PlayView.SetActive(true);
         _TitleView.SetActive(false);
@@ -81,7 +93,9 @@ public class ViewManager : MonoBehaviour
 
     private void UpdateEndScene()
     {
-        Time.timeScale = 0;
+        _EndTimer.UpdateTimer();
+        _EndView.GetComponentInChildren<Image>().color = new Color(0.6f, 0.6f, 0.61f, _EndTimer.TimeRate*0.9f);
+        _EndView.GetComponentInChildren<Text>().color = new Color(1, 0, 0, Mathf.Abs(Mathf.Sin(_EndTimer.ElaspedTime))*_EndTimer.TimeRate * 1f);
         _EndView.SetActive(true);
         _TitleView.SetActive(false);
         _PlayView.SetActive(false);
@@ -89,6 +103,9 @@ public class ViewManager : MonoBehaviour
 
     private void ChangeState(_ViewState next)
     {
+        a = 0;
+        _PlayTimer.ResetTimer();
+        _EndTimer.ResetTimer();
         _sceneState = next;
     }
 }

@@ -7,8 +7,15 @@ public abstract class Vehicle : MonoBehaviour,IDisplayable,IDamageable
 {
     [SerializeField]
     protected int _CurrentHp;
+    [SerializeField]
+    protected int _EntityId;
 
-    
+    private bool isDead = false;
+
+    public int EntityId { get => _EntityId;}
+    public int CurrentHp { get => _CurrentHp;}
+    public bool IsDead { get => isDead; set => isDead = value; }
+
     public abstract void Initialization(TankPM.VehicleEntity vehicleEntity);
 
     public abstract void AddDamage(int damage);
