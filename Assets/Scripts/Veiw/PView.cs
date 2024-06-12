@@ -72,7 +72,7 @@ public class PView : MonoBehaviour
     private void UpdateTitleScene()
     {
         _TitleTimer.UpdateTimer();
-        _TitleView.GetComponentInChildren<Text>().color = new Color(1, 0, 0, Mathf.Abs(Mathf.Sin(_TitleTimer.ElaspedTime)));
+        Time.timeScale = 0;
         _TitleView.SetActive(true);
         _PlayView.SetActive(false);
         _EndView.SetActive(false);
