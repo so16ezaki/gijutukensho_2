@@ -543,6 +543,7 @@ MonoBehaviour:
   _TitleView: {fileID: 274972960}
   _PlayView: {fileID: 903159491}
   _EndView: {fileID: 191478352}
+  _PEnemy: {fileID: 1122013862}
 --- !u!4 &688149917
 Transform:
   m_ObjectHideFlags: 0
@@ -664,7 +665,7 @@ GameObject:
   - component: {fileID: 740168248}
   - component: {fileID: 740168247}
   m_Layer: 5
-  m_Name: Text (Legacy) (1)
+  m_Name: StatusText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -722,7 +723,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "HP       :\nSpeed :   km/h\nAmmo :\t\n"
+  m_Text: 
 --- !u!222 &740168248
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -815,6 +816,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 903159492}
+  - component: {fileID: 903159493}
   m_Layer: 5
   m_Name: PlayView
   m_TagString: Untagged
@@ -844,6 +846,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &903159493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903159491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97fb6031f1986574ca417fa0e49be9dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: 
+  _StatusText: {fileID: 740168247}
 --- !u!1 &991286532
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,9 +968,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f1ea3d8f7e3844d9e2e58001ed62d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TankObj: {fileID: 0}
-  _Tank: {fileID: 0}
-  Vehicles: []
+  _TankPrefab: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
+  _MTankBehaviour: {fileID: 0}
+  _Vehicles: []
 --- !u!4 &1122013863
 Transform:
   m_ObjectHideFlags: 0
@@ -1300,7 +1316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1341,6 +1357,10 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: 0.00000011920929
       objectReference: {fileID: 0}
+    - target: {fileID: 948016470187188580, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 06d6203a147d1354989c3e5e2ebc53ac, type: 2}
     - target: {fileID: 1193580947242431504, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 0.59999996
@@ -1465,6 +1485,10 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.x
       value: 0.000000059604645
       objectReference: {fileID: 0}
+    - target: {fileID: 7171915347430815812, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 06d6203a147d1354989c3e5e2ebc53ac, type: 2}
     - target: {fileID: 8028124949495090294, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: -0.3999998
@@ -1623,9 +1647,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65547bb5c73bec40a50abcd61c092de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TankGameObj: {fileID: 1694271974}
-  _Tank: {fileID: 0}
-  Vehicles: []
+  _GameObj: {fileID: 1694271974}
+  _MTankBehaviour: {fileID: 0}
+  _PlayView: {fileID: 903159493}
 --- !u!4 &2101119902
 Transform:
   m_ObjectHideFlags: 0

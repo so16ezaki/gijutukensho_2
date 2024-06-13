@@ -13,9 +13,37 @@ MonoBehaviour:
   m_Name: TankPM
   m_EditorClassIdentifier: 
   vehicles:
-  - _TankName: ST1
-    _TankGameObj: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
-    _Hp: 5
+  - _EntitiyId: 1
+    _TankName: TX1
+    _Prefab: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
+    _MaxHp: 1
+    _MoveSpeed: 1000
+    _MoveForce: 500
+    _GunInterval: 2
+    _MaxPivotAngle: 25
+    _CVFSpeed: 100
+  - _EntitiyId: 2
+    _TankName: TX2
+    _Prefab: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
+    _MaxHp: 1
+    _MoveSpeed: 1000
+    _MoveForce: 500
+    _GunInterval: 2
+    _MaxPivotAngle: 25
+    _CVFSpeed: 100
+  - _EntitiyId: 3
+    _TankName: TX3
+    _Prefab: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
+    _MaxHp: 1
+    _MoveSpeed: 1000
+    _MoveForce: 500
+    _GunInterval: 2
+    _MaxPivotAngle: 25
+    _CVFSpeed: 100
+  - _EntitiyId: 4
+    _TankName: TX4
+    _Prefab: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
+    _MaxHp: 1
     _MoveSpeed: 1000
     _MoveForce: 500
     _GunInterval: 2
