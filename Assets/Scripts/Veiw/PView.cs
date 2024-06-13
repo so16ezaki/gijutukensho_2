@@ -16,6 +16,8 @@ public class PView : MonoBehaviour
     private GameObject _EndView;
     [SerializeField]
     private PEnemy _PEnemy;
+    [SerializeField]
+    private PPlayer _PPlayer;
 
 
     GameTimer _TitleTimer,_PlayTimer,_EndTimer;
@@ -45,6 +47,7 @@ public class PView : MonoBehaviour
         switch (_sceneState)
         {
             case _ViewState.TITLE_View:
+                Time.timeScale = 0;
                 UpdateTitleScene();
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -53,7 +56,7 @@ public class PView : MonoBehaviour
                 break;
             case _ViewState.PLAY_View:
                 UpdatePlayScene();
-                if (_PEnemy.isEndGame)
+                if (_PEnemy.isEndGame || _PPlayer.isEndGame)
                 {
                     ChangeState(_ViewState.END_View);
                 }

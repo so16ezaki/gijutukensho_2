@@ -111,4 +111,16 @@ public class PPlayer : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
     }
+
+    public bool isEndGame
+    {
+        get
+        {
+            bool end = false;
+            if (_MTankBehaviour.IsDead)
+                end = true;
+
+            return end;
+        }
+    }
 }

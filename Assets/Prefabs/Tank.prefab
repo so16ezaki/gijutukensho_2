@@ -436,7 +436,7 @@ MonoBehaviour:
   _BRHinge: {fileID: 8028124949495090294}
   _BLHinge: {fileID: 1193580947242431504}
   _PivotHinge: {fileID: 6058707677148788940}
-  _Shell: {fileID: 8222161213841954549, guid: b57290c702fad5b43a30279b40afc936, type: 3}
+  _Shell: {fileID: 8222161213841954549, guid: 470021e7ac4749b4592df2ee30c8c155, type: 3}
   _Gun: {fileID: 3550082450756996804}
   _CamPivot: {fileID: 0}
   _GunPivot: {fileID: 4859844612398071795}
@@ -449,7 +449,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5484226591057073735}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 30
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using Vector3 = UnityEngine.Vector3;
+using Quaternion = UnityEngine.Quaternion;
 
 public class MTankBehaviour : Vehicle
 {
@@ -111,9 +115,29 @@ public class MTankBehaviour : Vehicle
         if (_CamPivot != null)
             _CamPivot.transform.localRotation = cameraRot;
 
-        _GunPivot.transform.localRotation = gunRot;
+        _GunPivot.transform.localRotation = Quaternion.Slerp(_GunPivot.transform.localRotation, gunRot, Time.deltaTime * 100); ;
 
-        _TurretPivot.transform.localRotation = turretRot;
+        _TurretPivot.transform.localRotation =  Quaternion.Slerp(_TurretPivot.transform.rotation, turretRot, Time.deltaTime * 100); ;
+
+
+    }
+
+    public void RotateTurret(GameObject targetGameObj)
+    {
+        Vector3 targetX = targetGameObj.transform.position - _TurretPivot.transform.position;
+        Vector3 targetY = targetGameObj.transform.position - _GunPivot.transform.position;
+
+        Quaternion targetXRot = Quaternion.LookRotation(targetX);
+        Quaternion targetYRot = Quaternion.LookRotation(targetY);
+
+        _TurretPivot.transform.rotation = Quaternion.Slerp(_TurretPivot.transform.rotation,targetXRot,Time.fixedDeltaTime * 100);
+        _TurretPivot.transform.rotation = new Quaternion(0, _TurretPivot.transform.rotation.y, 0, _TurretPivot.transform.rotation.w);
+
+        _GunPivot.transform.localRotation = Quaternion.Slerp(_GunPivot.transform.localRotation, targetYRot, Time.fixedDeltaTime * 100);
+        _GunPivot.transform.localRotation = new Quaternion(_GunPivot.transform.localRotation.x, 0, 0, _GunPivot.transform.localRotation.w);
+
+
+        _GunPivot.transform.localRotation = ClampRotation(_GunPivot.transform.localRotation, -30, 10);
 
 
     }

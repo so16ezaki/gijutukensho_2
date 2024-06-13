@@ -8,6 +8,7 @@ public class PEnemy : MonoBehaviour
 {
     [SerializeField] GameObject _TankPrefab;
     [SerializeField] MTankBehaviour _MTankBehaviour;
+    [SerializeField] GameObject _Player;
     float randam = 0;
     float i = 1;
 
@@ -38,7 +39,7 @@ public class PEnemy : MonoBehaviour
 
 
         _Entity = _Entitys[0];
-        GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(0, 1, 10), Quaternion.identity);
+        GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(0, 0, 40), Quaternion.Euler(0,180,0));
         _Vehicles.Add(gameObject);
         _MTankBehaviour = gameObject.GetComponent<MTankBehaviour>();
         _MTankBehaviour.Initialization(_Entity);
@@ -83,7 +84,7 @@ public class PEnemy : MonoBehaviour
             }
 
             _Entity = _Entitys[entityId];
-            GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(0, 1, 10), Quaternion.identity);
+            GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(0, 0, 40), Quaternion.Euler(0, UnityEngine.Random.Range(0,360), 0));
             _Vehicles.Add(gameObject);
             _MTankBehaviour = gameObject.GetComponent<MTankBehaviour>();
             _MTankBehaviour.Initialization(_Entity);
@@ -92,6 +93,8 @@ public class PEnemy : MonoBehaviour
 
 
         }
+
+       
     }
 
     private void FixedUpdate()
@@ -105,7 +108,18 @@ public class PEnemy : MonoBehaviour
         }
         i += Time.fixedDeltaTime;
 
-        _MTankBehaviour.Move(randam, 1f, _Entity);
+        foreach (GameObject vehicle in _Vehicles)
+        {
+            _MTankBehaviour = vehicle.GetComponent<MTankBehaviour>();
+            int entityId = _MTankBehaviour.EntityId;
+            _Entity = _Entitys[entityId];
+
+            _MTankBehaviour.Move(randam, 1f, _Entity);
+
+            _MTankBehaviour.RotateTurret(_Player);
+
+            _MTankBehaviour.Shoot();
+        }
     }
 
     public bool isEndGame
