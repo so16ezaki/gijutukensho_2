@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class Camera1 : MonoBehaviour
 {
-    float x, z;
+    
 
-
-    //float speed = 0.1f;
-
-    public GameObject _CamPivot;
-    public GameObject _GunPivot;
-    Quaternion cameraRot, characterRot, gunRot;
+    [SerializeField]private GameObject _CamPivot;
+    [SerializeField] private GameObject _GunPivot;
+    Quaternion cameraRot, turretRot, gunRot;
     float Xsensityvity = 3f, Ysensityvity = 3f;
 
     bool cursorLock = true;
@@ -29,7 +26,7 @@ public class Camera1 : MonoBehaviour
 
         cameraRot = _CamPivot.transform.localRotation;
         gunRot = _GunPivot.transform.localRotation;
-        characterRot = transform.localRotation;
+        turretRot = transform.localRotation;
     }
 
     // Update is called once per frame
@@ -37,30 +34,14 @@ public class Camera1 : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
-            Ray();
-            ScrollAction();
+            //Ray();
+            //ScrollAction();
 
 
             float xRot = Input.GetAxis("Mouse X") * Ysensityvity;
             float yRot = Input.GetAxis("Mouse Y") * Xsensityvity;
-
-            cameraRot *= Quaternion.Euler(-yRot, 0, 0);
-            // gunRot *= Quaternion.Euler(-yRot , 0, 0);
-            characterRot *= Quaternion.Euler(0, xRot, 0);
-
-            //Updateの中で作成した関数を呼ぶ
-            cameraRot = ClampRotation(cameraRot, -90, 90);
-            gunRot = ClampRotation(cameraRot, -30, 10);
-
-            _CamPivot.transform.localRotation = cameraRot;
-            //Debug.Log(cameraRot.eulerAngles.x);
-            _GunPivot.transform.localRotation = gunRot;
-
-            transform.localRotation = characterRot;
-
-
-            UpdateCursorLock();
-
+            
+            RotateTurret(xRot, yRot);
         }
     }
 
@@ -69,8 +50,28 @@ public class Camera1 : MonoBehaviour
 
     }
 
+    public void RotateTurret(float xRot,float yRot)
+    {
+        cameraRot *= Quaternion.Euler(-yRot, 0, 0);
+        // gunRot *= Quaternion.Euler(-yRot , 0, 0);
+        turretRot *= Quaternion.Euler(0, xRot, 0);
 
-    public void UpdateCursorLock()
+        //Updateの中で作成した関数を呼ぶ
+        cameraRot = ClampRotation(cameraRot, -90, 90);
+        gunRot = ClampRotation(cameraRot, -30, 10);
+
+        _CamPivot.transform.localRotation = cameraRot;
+        //Debug.Log(cameraRot.eulerAngles.x);
+        _GunPivot.transform.localRotation = gunRot;
+
+        transform.localRotation = turretRot;
+
+
+        UpdateCursorLock();
+    }
+
+
+    private void UpdateCursorLock()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -93,7 +94,7 @@ public class Camera1 : MonoBehaviour
     }
 
     //角度制限関数の作成
-    public Quaternion ClampRotation(Quaternion q, float minX, float maxX)
+    private Quaternion ClampRotation(Quaternion q, float minX, float maxX)
     {
         //q = x,y,z,w (x,y,zはベクトル（量と向き）：wはスカラー（座標とは無関係の量）)
 
@@ -111,33 +112,33 @@ public class Camera1 : MonoBehaviour
         return q;
     }
 
-    private void Ray()
-    {
-        //メインカメラ上のマウスポインタのある位置からrayを飛ばす
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+    //private void Ray()
+    //{
+    //    //メインカメラ上のマウスポインタのある位置からrayを飛ばす
+    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //    RaycastHit hit;
 
-        int VehicleLayer = 1 << 8;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity,VehicleLayer))
-        {
-            //Rayが当たったオブジェクトの名前と位置情報をログに表示する
-            //Debug.Log(hit.collider.gameObject.name);
-            //Debug.Log(hit.collider.gameObject.transform.position);
-            int entityId = hit.collider.GetComponentInParent<Vehicle>().EntityId;
+    //    int VehicleLayer = 1 << 8;
+    //    if (Physics.Raycast(ray, out hit, Mathf.Infinity,VehicleLayer))
+    //    {
+    //        //Rayが当たったオブジェクトの名前と位置情報をログに表示する
+    //        //Debug.Log(hit.collider.gameObject.name);
+    //        //Debug.Log(hit.collider.gameObject.transform.position);
+    //        int entityId = hit.collider.GetComponentInParent<Vehicle>().EntityId;
 
-            hit.collider.GetComponentInParent<IDisplayable>().disInfo(_Entitys[entityId]);
+    //        hit.collider.GetComponentInParent<IDisplayable>().disInfo(_Entitys[entityId]);
 
-        }
-    }
+    //    }
+    //}
 
-    private void ScrollAction()
-    {
-        //ホイールを取得して、均しのためにtime.deltaTimeをかけておく
-        var scroll = Input.mouseScrollDelta.y * Time.deltaTime * 100;
-        //mainCam.orthographicSizeは0だとエラー出るっぽいので回避策
-        float fov = Camera.main.fieldOfView;
+    //private void ScrollAction()
+    //{
+    //    //ホイールを取得して、均しのためにtime.deltaTimeをかけておく
+    //    var scroll = Input.mouseScrollDelta.y * Time.deltaTime * 100;
+    //    //mainCam.orthographicSizeは0だとエラー出るっぽいので回避策
+    //    float fov = Camera.main.fieldOfView;
 
-        Camera.main.fieldOfView = Mathf.Clamp(fov -= scroll, 20, 90);
+    //    Camera.main.fieldOfView = Mathf.Clamp(fov -= scroll, 20, 90);
 
-    }
+    //}
 }

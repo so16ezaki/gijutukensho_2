@@ -18,9 +18,14 @@ public class MTankBehaviour : Vehicle
     [SerializeField] GameObject _Shell;
     [SerializeField] GameObject _Gun;
 
+    [SerializeField] private GameObject _CamPivot;
+    [SerializeField] private GameObject _GunPivot;
+    [SerializeField] private GameObject _TurretPivot;
 
-
+    Quaternion cameraRot, turretRot, gunRot;
     
+
+
     GameTimer _GunIntervalTimer;
     // Start is called before the first frame update
 
@@ -29,12 +34,18 @@ public class MTankBehaviour : Vehicle
         _CurrentHp = vehicleEntity.MaxHp;
         _EntityId = vehicleEntity.EntitiyId;
 
+        if (_CamPivot != null)
+            cameraRot = _CamPivot.transform.localRotation;
+
+        gunRot = _GunPivot.transform.localRotation;
+        turretRot = _TurretPivot.transform.localRotation;
+
         if (_BLHinge != null && _BRHinge != null && _PivotHinge != null)
         {
             _PivotSpring = _PivotHinge.spring;
             _PivotHinge.useSpring = true;
             _GunIntervalTimer = new GameTimer(vehicleEntity.GunInterval);
-            
+
         }
     }
 
@@ -44,6 +55,11 @@ public class MTankBehaviour : Vehicle
 
         _GunIntervalTimer.UpdateTimer();
 
+    }
+
+    void Update()
+    {
+        
     }
 
     public void Shoot()
@@ -81,6 +97,27 @@ public class MTankBehaviour : Vehicle
         }
     }
 
+    public void RotateTurret(float xRot, float yRot)
+    {
+        cameraRot *= Quaternion.Euler(-yRot, 0, 0);
+        // gunRot *= Quaternion.Euler(-yRot , 0, 0);
+        turretRot *= Quaternion.Euler(0, xRot, 0);
+
+        //Updateの中で作成した関数を呼ぶ
+        cameraRot = ClampRotation(cameraRot, -90, 90);
+        gunRot = ClampRotation(cameraRot, -30, 10);
+
+
+        if (_CamPivot != null)
+            _CamPivot.transform.localRotation = cameraRot;
+
+        _GunPivot.transform.localRotation = gunRot;
+
+        _TurretPivot.transform.localRotation = turretRot;
+
+
+    }
+
     public override void disInfo(TankPM.VehicleEntity vehicleEntity)
     {
         Debug.Log(vehicleEntity.TankName + "車両 HP: " + CurrentHp);
@@ -102,5 +139,24 @@ public class MTankBehaviour : Vehicle
             Destroy(gameObject, 5);
         }
     }
-  
+
+
+    //角度制限関数の作成
+    private Quaternion ClampRotation(Quaternion q, float minX, float maxX)
+    {
+        //q = x,y,z,w (x,y,zはベクトル（量と向き）：wはスカラー（座標とは無関係の量）)
+
+        q.x /= q.w;
+        q.y /= q.w;
+        q.z /= q.w;
+        q.w = 1f;
+
+        float angleX = Mathf.Atan(q.x) * Mathf.Rad2Deg * 2f;
+
+        angleX = Mathf.Clamp(angleX, minX, maxX);
+
+        q.x = Mathf.Tan(angleX * Mathf.Deg2Rad * 0.5f);
+
+        return q;
+    }
 }
