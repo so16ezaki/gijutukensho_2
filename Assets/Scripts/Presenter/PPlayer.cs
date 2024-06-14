@@ -5,7 +5,7 @@ public class PPlayer : MonoBehaviour
 {
     [SerializeField] GameObject _GameObj;
     [SerializeField]MTankBehaviour _MTankBehaviour;
-    [SerializeField]PlayView _PlayView;
+    [SerializeField]VGameView _VGameView;
 
     TankPM.VehicleEntity _Entity;
     List<TankPM.VehicleEntity> _Entitys;
@@ -15,6 +15,7 @@ public class PPlayer : MonoBehaviour
     bool cursorLock = true;
 
     float Xsensityvity = 3f, Ysensityvity = 3f;
+    float scroll = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,8 @@ public class PPlayer : MonoBehaviour
         _MTankBehaviour.Initialization(_Entity);
 
         _Rigidbody = _GameObj.GetComponent<Rigidbody>();
+
+        _VGameView.EnemyRayDispInfo("");
     }
 
 
@@ -47,14 +50,17 @@ public class PPlayer : MonoBehaviour
     }
     private void Update()
     {
-        _PlayView.DispInfo(_Entity.TankName, _MTankBehaviour.CurrentHp, (int)_Rigidbody.velocity.sqrMagnitude);
+        _VGameView.DispInfo(_Entity.TankName, _MTankBehaviour.CurrentHp, (int)_Rigidbody.velocity.sqrMagnitude);
+        
         Ray();
         ScrollAction();
-
         UpdateCursorLock();
 
-        float xRot = Input.GetAxis("Mouse X") * Ysensityvity;
-        float yRot = Input.GetAxis("Mouse Y") * Xsensityvity;
+        
+        scroll += Mathf.Clamp(1- 0.5f * Input.mouseScrollDelta.y,0.4f,1);
+
+        float xRot = Input.GetAxis("Mouse X") * 0.5f;
+        float yRot = Input.GetAxis("Mouse Y") * 0.5f;
 
         _MTankBehaviour.RotateTurret(xRot,yRot);
     }
@@ -73,8 +79,8 @@ public class PPlayer : MonoBehaviour
             //Debug.Log(hit.collider.gameObject.transform.position);
             int entityId = hit.collider.GetComponentInParent<Vehicle>().EntityId;
 
-            hit.collider.GetComponentInParent<IDisplayable>().disInfo(_Entitys[entityId]);
-
+            string Enemystatus = hit.collider.GetComponentInParent<IDisplayable>().disInfo(_Entitys[entityId]);
+            _VGameView.EnemyRayDispInfo(Enemystatus);
         }
 
     }

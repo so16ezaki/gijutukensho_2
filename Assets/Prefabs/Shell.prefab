@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde5018c05ef1b0439d12bbfffddb165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 300
   effect: {fileID: 6833705906046066765, guid: fdb4795302728804ebbeedbe4f9d6ca3, type: 3}
 --- !u!96 &2867584270704743067
 TrailRenderer:
@@ -298,17 +299,17 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.5
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.5
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.2812496
+        value: 1
         inSlope: 0
         outSlope: 0
         tangentMode: 0

@@ -20,7 +20,7 @@ public abstract class Vehicle : MonoBehaviour,IDisplayable,IDamageable
 
     public abstract void AddDamage(int damage);
 
-    public abstract void disInfo(TankPM.VehicleEntity vehicleEntity);
+    public abstract string disInfo(TankPM.VehicleEntity vehicleEntity);
 
 
 }

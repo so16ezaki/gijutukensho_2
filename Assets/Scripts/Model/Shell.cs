@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Shell : MonoBehaviour
 {
+    [SerializeField] float speed = 60;
     [SerializeField] GameObject effect;
     // Start is called before the first frame update
     void Start()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
-        rb.AddForce(transform.up * 60, ForceMode.VelocityChange);
+        rb.AddForce(transform.up *speed, ForceMode.VelocityChange);
     }
 
     // Update is called once per frame

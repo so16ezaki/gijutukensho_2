@@ -61,10 +61,6 @@ public class MTankBehaviour : Vehicle
 
     }
 
-    void Update()
-    {
-        
-    }
 
     public void Shoot()
     {
@@ -115,9 +111,9 @@ public class MTankBehaviour : Vehicle
         if (_CamPivot != null)
             _CamPivot.transform.localRotation = cameraRot;
 
-        _GunPivot.transform.localRotation = Quaternion.Slerp(_GunPivot.transform.localRotation, gunRot, Time.deltaTime * 100); ;
+        _GunPivot.transform.localRotation = gunRot;
 
-        _TurretPivot.transform.localRotation =  Quaternion.Slerp(_TurretPivot.transform.rotation, turretRot, Time.deltaTime * 100); ;
+        _TurretPivot.transform.localRotation = turretRot;
 
 
     }
@@ -142,9 +138,9 @@ public class MTankBehaviour : Vehicle
 
     }
 
-    public override void disInfo(TankPM.VehicleEntity vehicleEntity)
+    public override string disInfo(TankPM.VehicleEntity vehicleEntity)
     {
-        Debug.Log(vehicleEntity.TankName + "ŽÔ—¼ HP: " + CurrentHp);
+        return  vehicleEntity.TankName + "ŽÔ—¼ HP: " + CurrentHp +"/"+vehicleEntity.MaxHp;
     }
 
     public override void AddDamage(int damage)

@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Randam = UnityEngine.Random;
 
 public class PEnemy : MonoBehaviour
 {
     [SerializeField] GameObject _TankPrefab;
     [SerializeField] MTankBehaviour _MTankBehaviour;
     [SerializeField] GameObject _Player;
+    [SerializeField] VGameView _VGameView;
+
     float randam = 0;
     float i = 1;
 
@@ -23,7 +26,8 @@ public class PEnemy : MonoBehaviour
     TankPM.VehicleEntity _Entity;
     List<TankPM.VehicleEntity> _Entitys;
 
-    int num;
+    int _Num;
+    int _DestroyCount;
 
 
 
@@ -35,14 +39,8 @@ public class PEnemy : MonoBehaviour
 
         spawnTimer = new GameTimer(_SpawnInter);
 
-        num = 0;
+        _Num = 0;
 
-
-        _Entity = _Entitys[0];
-        GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(0, 0, 40), Quaternion.Euler(0,180,0));
-        _Vehicles.Add(gameObject);
-        _MTankBehaviour = gameObject.GetComponent<MTankBehaviour>();
-        _MTankBehaviour.Initialization(_Entity);
 
         //GameObject gameObject= Instantiate(_TankPrefab, new Vector3(0, 1, 10), Quaternion.identity);
         //Vehicles.Add(gameObject);
@@ -52,6 +50,7 @@ public class PEnemy : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(_Num);
 
         List<GameObject> vehiclesToRemove = new List<GameObject>();
 
@@ -66,6 +65,7 @@ public class PEnemy : MonoBehaviour
         foreach (GameObject vehicleToRemove in vehiclesToRemove)
         {
             _Vehicles.Remove(vehicleToRemove);
+            _DestroyCount++;
         }
 
 
@@ -74,27 +74,24 @@ public class PEnemy : MonoBehaviour
         //Debug.Log(_Entitys.Count);
         spawnTimer.UpdateTimer();
 
-        if (spawnTimer.IsTimeUp && num < 1)
+        if (spawnTimer.IsTimeUp)
         {
-            int entityId = num;
+            int entityId = _Num;
 
-            if (num >= _Entitys.Count)
+            if (_Num < _Entitys.Count)
             {
-                entityId = 0;
+                _Entity = _Entitys[entityId];
+                GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(20,0,Randam.Range(-50,50)),Quaternion.identity);
+                _Vehicles.Add(gameObject);
+                _MTankBehaviour = gameObject.GetComponent<MTankBehaviour>();
+                _MTankBehaviour.Initialization(_Entity);
+                _Num++;
+                spawnTimer.ResetTimer();
             }
-
-            _Entity = _Entitys[entityId];
-            GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(0, 0, 40), Quaternion.Euler(0, UnityEngine.Random.Range(0,360), 0));
-            _Vehicles.Add(gameObject);
-            _MTankBehaviour = gameObject.GetComponent<MTankBehaviour>();
-            _MTankBehaviour.Initialization(_Entity);
-            num++;
-            spawnTimer.ResetTimer();
-
 
         }
 
-       
+        _VGameView.EnemyListDispInfo(_Entitys,_Vehicles);
     }
 
     private void FixedUpdate()
@@ -112,6 +109,7 @@ public class PEnemy : MonoBehaviour
         {
             _MTankBehaviour = vehicle.GetComponent<MTankBehaviour>();
             int entityId = _MTankBehaviour.EntityId;
+            //Debug.Log(entityId);
             _Entity = _Entitys[entityId];
 
             _MTankBehaviour.Move(randam, 1f, _Entity);
@@ -124,9 +122,10 @@ public class PEnemy : MonoBehaviour
 
     public bool isEndGame
     {
-        get{
+        get
+        {
             bool end = false;
-            if (_Vehicles.Count <= 0)
+            if (_Entitys.Count <= _DestroyCount)
                 end = true;
 
             return end;
