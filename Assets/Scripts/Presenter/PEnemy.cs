@@ -83,7 +83,7 @@ public class PEnemy : MonoBehaviour
             if (_Num < _Entitys.Count)
             {
                 _Entity = _Entitys[entityId];
-                GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(_Player.transform.position.x + Randam.Range(-100, 100), 0, _Player.transform.position.x + Randam.Range(50, 70)),Quaternion.Euler(0,Randam.Range(-180,180),0));
+                GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(_Player.transform.position.x + Randam.Range(-100, 100),5, _Player.transform.position.x + Randam.Range(50, 70)),Quaternion.Euler(0,Randam.Range(-180,180),0));
                 _Vehicles.Add(gameObject);
                 _MTankBehaviour = gameObject.GetComponent<MTankBehaviour>();
                 _MTankBehaviour.Initialization(_Entity);
