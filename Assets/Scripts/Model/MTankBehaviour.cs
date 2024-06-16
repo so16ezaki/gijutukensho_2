@@ -6,7 +6,9 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
+using System;
 
+[Serializable]
 public class MTankBehaviour : Vehicle
 {
     Rigidbody _Rb;
@@ -19,18 +21,23 @@ public class MTankBehaviour : Vehicle
     [SerializeField] JointMotor _BLMotor;
     [SerializeField] JointSpring _PivotSpring;
 
-    [SerializeField] GameObject _Shell;
-    [SerializeField] GameObject _Gun;
+    [SerializeField] protected GameObject _Shell;
+    [SerializeField] protected GameObject _Gun;
 
     [SerializeField] private GameObject _CamPivot;
     [SerializeField] private GameObject _GunPivot;
     [SerializeField] private GameObject _TurretPivot;
 
-    Quaternion cameraRot, turretRot, gunRot;
     
 
+    Quaternion cameraRot, turretRot, gunRot;
 
-    GameTimer _GunIntervalTimer;
+
+
+    protected GameTimer _GunIntervalTimer;
+
+    public GameTimer GunIntervalTimer { get => _GunIntervalTimer; }
+
     // Start is called before the first frame update
 
     public override void Initialization(TankPM.VehicleEntity vehicleEntity)
@@ -54,21 +61,22 @@ public class MTankBehaviour : Vehicle
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    public override void UpdateBehaviour()
     {
 
-        _GunIntervalTimer.UpdateTimer();
+        GunIntervalTimer.UpdateTimer();
+        
 
     }
 
 
-    public void Shoot()
+    public virtual void Shoot()
     {
 
-        if (_GunIntervalTimer.IsTimeUp)
+        if (GunIntervalTimer.IsTimeUp)
         {
             Instantiate(_Shell, _Gun.transform.position, _Gun.transform.rotation);
-            _GunIntervalTimer.ResetTimer();
+            GunIntervalTimer.ResetTimer();
         }
 
     }
@@ -126,13 +134,13 @@ public class MTankBehaviour : Vehicle
         Quaternion targetXRot = Quaternion.LookRotation(targetX);
         Quaternion targetYRot = Quaternion.LookRotation(targetY);
 
-        _TurretPivot.transform.rotation = Quaternion.Slerp(_TurretPivot.transform.rotation,targetXRot,Time.fixedDeltaTime * 100);
+        _TurretPivot.transform.rotation = Quaternion.Slerp(_TurretPivot.transform.rotation, targetXRot, Time.fixedDeltaTime * 100);
         _TurretPivot.transform.rotation = new Quaternion(0, _TurretPivot.transform.rotation.y, 0, _TurretPivot.transform.rotation.w);
 
         _GunPivot.transform.localRotation = Quaternion.Slerp(_GunPivot.transform.localRotation, targetYRot, Time.fixedDeltaTime * 100);
         _GunPivot.transform.localRotation = new Quaternion(_GunPivot.transform.localRotation.x, 0, 0, _GunPivot.transform.localRotation.w);
 
-
+        _TurretPivot.transform.localRotation = ClampRotation( _TurretPivot.transform.localRotation,0, 0);
         _GunPivot.transform.localRotation = ClampRotation(_GunPivot.transform.localRotation, -30, 10);
 
 
@@ -140,7 +148,7 @@ public class MTankBehaviour : Vehicle
 
     public override string disInfo(TankPM.VehicleEntity vehicleEntity)
     {
-        return  vehicleEntity.TankName + "ŽÔ—¼ HP: " + CurrentHp +"/"+vehicleEntity.MaxHp;
+        return vehicleEntity.TankName + "ŽÔ—¼ HP: " + CurrentHp + "/" + vehicleEntity.MaxHp;
     }
 
     public override void AddDamage(int damage)
@@ -179,4 +187,6 @@ public class MTankBehaviour : Vehicle
 
         return q;
     }
+
+   
 }

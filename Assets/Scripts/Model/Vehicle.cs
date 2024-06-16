@@ -18,6 +18,8 @@ public abstract class Vehicle : MonoBehaviour,IDisplayable,IDamageable
 
     public abstract void Initialization(TankPM.VehicleEntity vehicleEntity);
 
+    public abstract void UpdateBehaviour();
+
     public abstract void AddDamage(int damage);
 
     public abstract string disInfo(TankPM.VehicleEntity vehicleEntity);

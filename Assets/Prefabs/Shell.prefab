@@ -257,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 300
   effect: {fileID: 6833705906046066765, guid: fdb4795302728804ebbeedbe4f9d6ca3, type: 3}
+  damage: 10
 --- !u!96 &2867584270704743067
 TrailRenderer:
   serializedVersion: 3
@@ -303,7 +304,7 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:

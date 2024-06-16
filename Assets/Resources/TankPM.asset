@@ -16,26 +16,26 @@ MonoBehaviour:
   - _EntitiyId: 0
     _TankName: TX1
     _Prefab: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
-    _MaxHp: 10
+    _MaxHp: 1000
     _MoveSpeed: 1000
     _MoveForce: 500
     _GunInterval: 2
     _MaxPivotAngle: 25
     _CVFSpeed: 100
   - _EntitiyId: 1
-    _TankName: "\u7BE0\u5D0E"
-    _Prefab: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
-    _MaxHp: 1
-    _MoveSpeed: 1000
+    _TankName: DefenceTank
+    _Prefab: {fileID: 8804570496447947983, guid: 28560a8986b749142ad8439ad524add6, type: 3}
+    _MaxHp: 10
+    _MoveSpeed: 500
     _MoveForce: 500
-    _GunInterval: 2
+    _GunInterval: 15
     _MaxPivotAngle: 25
     _CVFSpeed: 100
   - _EntitiyId: 2
-    _TankName: "\u96C4\u4ECB"
-    _Prefab: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
-    _MaxHp: 1
-    _MoveSpeed: 1000
+    _TankName: AttackTank
+    _Prefab: {fileID: 8804570496447947983, guid: 28560a8986b749142ad8439ad524add6, type: 3}
+    _MaxHp: 10
+    _MoveSpeed: 500
     _MoveForce: 500
     _GunInterval: 2
     _MaxPivotAngle: 25

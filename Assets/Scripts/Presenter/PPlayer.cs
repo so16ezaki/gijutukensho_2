@@ -14,8 +14,11 @@ public class PPlayer : MonoBehaviour
 
     bool cursorLock = true;
 
-    float Xsensityvity = 3f, Ysensityvity = 3f;
     float scroll = 0;
+
+    string _Enemystatus = "";
+    int entityId;
+    IDisplayable displayable;
 
     // Start is called before the first frame update
     void Start()
@@ -59,10 +62,11 @@ public class PPlayer : MonoBehaviour
         
         scroll += Mathf.Clamp(1- 0.5f * Input.mouseScrollDelta.y,0.4f,1);
 
-        float xRot = Input.GetAxis("Mouse X") * 0.5f;
-        float yRot = Input.GetAxis("Mouse Y") * 0.5f;
+        float xRot = Input.GetAxis("Mouse X") ;
+        float yRot = Input.GetAxis("Mouse Y") ;
 
         _MTankBehaviour.RotateTurret(xRot,yRot);
+        _MTankBehaviour.UpdateBehaviour();
     }
 
     private void Ray()
@@ -77,12 +81,12 @@ public class PPlayer : MonoBehaviour
             //Rayが当たったオブジェクトの名前と位置情報をログに表示する
             //Debug.Log(hit.collider.gameObject.name);
             //Debug.Log(hit.collider.gameObject.transform.position);
-            int entityId = hit.collider.GetComponentInParent<Vehicle>().EntityId;
+            entityId = hit.collider.GetComponentInParent<Vehicle>().EntityId;
+            displayable = hit.collider.GetComponentInParent<IDisplayable>();
 
-            string Enemystatus = hit.collider.GetComponentInParent<IDisplayable>().disInfo(_Entitys[entityId]);
-            _VGameView.EnemyRayDispInfo(Enemystatus);
         }
-
+        _Enemystatus =  displayable?.disInfo(_Entitys[entityId]);
+        _VGameView.EnemyRayDispInfo(_Enemystatus);
     }
 
     private void ScrollAction()

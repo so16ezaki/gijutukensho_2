@@ -7,6 +7,7 @@ public class Shell : MonoBehaviour
 {
     [SerializeField] float speed = 60;
     [SerializeField] GameObject effect;
+    [SerializeField] int damage = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,6 @@ public class Shell : MonoBehaviour
     {
         Destroy(gameObject);
         Instantiate(effect,transform.position,transform.rotation);
-        collision.gameObject.GetComponentInParent<IDamageable>()?.AddDamage(1);
+        collision.gameObject.GetComponentInParent<IDamageable>()?.AddDamage(damage);
     }
 }

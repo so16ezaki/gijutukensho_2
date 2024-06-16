@@ -16,7 +16,7 @@ public class PEnemy : MonoBehaviour
     float i = 1;
 
     // Start is called before the first frame update
-    int _SpawnInter = 10;
+    [SerializeField]int _SpawnInter = 10;
     GameTimer spawnTimer;
 
 
@@ -50,7 +50,9 @@ public class PEnemy : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_Num);
+        
+
+        //Debug.Log(_Num);
 
         List<GameObject> vehiclesToRemove = new List<GameObject>();
 
@@ -81,7 +83,7 @@ public class PEnemy : MonoBehaviour
             if (_Num < _Entitys.Count)
             {
                 _Entity = _Entitys[entityId];
-                GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(20,0,Randam.Range(-50,50)),Quaternion.identity);
+                GameObject gameObject = Instantiate(_Entity.Prefab, new Vector3(_Player.transform.position.x + Randam.Range(-100, 100), 0, _Player.transform.position.x + Randam.Range(50, 70)),Quaternion.Euler(0,Randam.Range(-180,180),0));
                 _Vehicles.Add(gameObject);
                 _MTankBehaviour = gameObject.GetComponent<MTankBehaviour>();
                 _MTankBehaviour.Initialization(_Entity);
@@ -92,6 +94,8 @@ public class PEnemy : MonoBehaviour
         }
 
         _VGameView.EnemyListDispInfo(_Entitys,_Vehicles);
+
+        
     }
 
     private void FixedUpdate()
@@ -117,6 +121,8 @@ public class PEnemy : MonoBehaviour
             _MTankBehaviour.RotateTurret(_Player);
 
             _MTankBehaviour.Shoot();
+
+            _MTankBehaviour.UpdateBehaviour();
         }
     }
 
