@@ -1337,7 +1337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrainSize: {x: 500, y: 500}
   height: 3
-  relief: 10
+  relief: 15
 --- !u!1 &1578391959
 GameObject:
   m_ObjectHideFlags: 0
