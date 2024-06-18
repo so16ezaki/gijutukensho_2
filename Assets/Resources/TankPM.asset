@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d1fcb616358834f8f2b9a38922e43b, type: 3}
+  m_Name: TankPM
+  m_EditorClassIdentifier: 
+  vehicles:
+  - _EntitiyId: 0
+    _TankName: TX1
+    _Prefab: {fileID: 5484226591057073735, guid: f04221ede7f8da0489be951f2ca47d3b, type: 3}
+    _MaxHp: 20
+    _MoveSpeed: 1000
+    _MoveForce: 500
+    _GunInterval: 2
+    _MaxPivotAngle: 25
+    _CVFSpeed: 100
+  - _EntitiyId: 1
+    _TankName: DefenceTank
+    _Prefab: {fileID: 8804570496447947983, guid: 28560a8986b749142ad8439ad524add6, type: 3}
+    _MaxHp: 10
+    _MoveSpeed: 500
+    _MoveForce: 500
+    _GunInterval: 15
+    _MaxPivotAngle: 25
+    _CVFSpeed: 100
+  - _EntitiyId: 2
+    _TankName: DefenceTank
+    _Prefab: {fileID: 8804570496447947983, guid: 28560a8986b749142ad8439ad524add6, type: 3}
+    _MaxHp: 10
+    _MoveSpeed: 500
+    _MoveForce: 500
+    _GunInterval: 2
+    _MaxPivotAngle: 25
+    _CVFSpeed: 100
+  - _EntitiyId: 3
+    _TankName: AttackTank
+    _Prefab: {fileID: 8804570496447947983, guid: 4d476caa6a2598f4c85e108f29a6e418, type: 3}
+    _MaxHp: 15
+    _MoveSpeed: 500
+    _MoveForce: 500
+    _GunInterval: 15
+    _MaxPivotAngle: 25
+    _CVFSpeed: 100
+  - _EntitiyId: 4
+    _TankName: AttackTank
+    _Prefab: {fileID: 8804570496447947983, guid: 4d476caa6a2598f4c85e108f29a6e418, type: 3}
+    _MaxHp: 15
+    _MoveSpeed: 500
+    _MoveForce: 500
+    _GunInterval: 15
+    _MaxPivotAngle: 25
+    _CVFSpeed: 100
