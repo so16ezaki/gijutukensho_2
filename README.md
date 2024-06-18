@@ -35,3 +35,8 @@
 
 モデル自身が自分のパラメーターを持ってはいけない
 
+# ゲーム本体
+## クラス図
+![JLJFSJ~1](https://github.com/so16ezaki/gijutukensho_2/assets/117282405/cef4ecbb-e7bc-4ca6-a05c-505492a59af0)
+
+
