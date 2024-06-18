@@ -22,10 +22,10 @@ https://xr-hub.com/archives/19842
 ## Unity
 
 ### unityRigidbody
-https://blog.oimo.io/2022/08/25/calm-joints-down/
+
 
 ### joint
-`joint` は...
+https://blog.oimo.io/2022/08/25/calm-joints-down/
 
 ### unityTerrain
 https://qiita.com/saradaba0007/items/89998e8c31fc4fc9fa12
