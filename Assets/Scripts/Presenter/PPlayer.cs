@@ -53,7 +53,7 @@ public class PPlayer : MonoBehaviour
     }
     private void Update()
     {
-        _VGameView.DispInfo(_Entity.TankName, _MTankBehaviour.CurrentHp, (int)_Rigidbody.velocity.sqrMagnitude);
+        _VGameView.DispInfo(_Entity.TankName, _MTankBehaviour.CurrentHp, (int)_Rigidbody.linearVelocity.sqrMagnitude);
         
         Ray();
         ScrollAction();
@@ -71,14 +71,14 @@ public class PPlayer : MonoBehaviour
 
     private void Ray()
     {
-        //ƒƒCƒ“ƒJƒƒ‰ã‚Ìƒ}ƒEƒXƒ|ƒCƒ“ƒ^‚Ì‚ ‚éˆÊ’u‚©‚çray‚ğ”ò‚Î‚·
+        //ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒ}ï¿½Eï¿½Xï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ì‚ï¿½ï¿½ï¿½Ê’uï¿½ï¿½ï¿½ï¿½rayï¿½ï¿½ï¿½Î‚ï¿½
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         int VehicleLayer = 1 << 8;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, VehicleLayer))
         {
-            //Ray‚ª“–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ì–¼‘O‚ÆˆÊ’uî•ñ‚ğƒƒO‚É•\¦‚·‚é
+            //Rayï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½Ì–ï¿½ï¿½Oï¿½ÆˆÊ’uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½É•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             //Debug.Log(hit.collider.gameObject.name);
             //Debug.Log(hit.collider.gameObject.transform.position);
             entityId = hit.collider.GetComponentInParent<Vehicle>().EntityId;
@@ -91,9 +91,9 @@ public class PPlayer : MonoBehaviour
 
     private void ScrollAction()
     {
-        //ƒzƒC[ƒ‹‚ğæ“¾‚µ‚ÄA‹Ï‚µ‚Ì‚½‚ß‚Étime.deltaTime‚ğ‚©‚¯‚Ä‚¨‚­
+        //ï¿½zï¿½Cï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ÄAï¿½Ï‚ï¿½ï¿½Ì‚ï¿½ï¿½ß‚ï¿½time.deltaTimeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
         var scroll = Input.mouseScrollDelta.y * Time.deltaTime * 100;
-        //mainCam.orthographicSize‚Í0‚¾‚ÆƒGƒ‰[o‚é‚Á‚Û‚¢‚Ì‚Å‰ñ”ğô
+        //mainCam.orthographicSizeï¿½ï¿½0ï¿½ï¿½ï¿½ÆƒGï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½ï¿½Û‚ï¿½ï¿½Ì‚Å‰ï¿½ï¿½ï¿½ï¿½
         float fov = Camera.main.fieldOfView;
 
         Camera.main.fieldOfView = Mathf.Clamp(fov -= scroll, 20, 90);
