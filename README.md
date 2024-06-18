@@ -12,9 +12,10 @@
 ## オブジェクト指向
 
 ### インターフェイス
-- https://qiita.com/IShix/items/aeafc9b5ea7ae0c617f2<br>
-- https://watablog.tech/2021/10/01/post-2137/#google_vignette<br>
+- https://qiita.com/IShix/items/aeafc9b5ea7ae0c617f2
+- https://watablog.tech/2021/10/01/post-2137/#google_vignette
 - https://naoyu.dev/%E3%80%90unity%E3%80%91%E3%82%AF%E3%83%A9%E3%82%B9%E8%A8%AD%E8%A8%88%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%95%E3%82%A7%E3%82%A4%E3%82%B9%E3%81%AE%E5%BD%B9/
+- https://www.hanachiru-blog.com/entry/2018/07/25/234956
 
 ### 抽象クラス
 - https://xr-hub.com/archives/19842
