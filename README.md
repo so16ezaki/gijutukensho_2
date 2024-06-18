@@ -39,5 +39,132 @@
 # ゲーム本体
 ## クラス図
 ![JLJFSJ~1](https://github.com/so16ezaki/gijutukensho_2/assets/117282405/cef4ecbb-e7bc-4ca6-a05c-505492a59af0)
+```plantuml
+@startuml
+!theme vibrant
+' パッケージ
+package scriptableObject(Database) <<Database>> {
+
+
+class TankPM{
+ +vehicles : List<TankPM.VehicleEntity>
+}
+
+
+class VehicleEntity{
+ -_EntitiyId
+ -_TankName
+ -_Prefa
+ -_MaxHp
+ -_MoveSpeed
+ -_MoveForce
+ -_GunInterval
+ -_MaxPivotAngle
+ -_CVFSpeed
+}
+
+TankPM +-- VehicleEntity
+TankPM o-- VehicleEntity
+
+}
+
+
+
+
+package Model{
+
+interface IDisplayable{
+ +disInfo() : void
+}
+
+
+interface IDamageable{
+ +AddDamage(damge : int) : void
+}
+
+
+
+
+
+
+abstract class Vehicle{
+ #_CurrentHp : int
+ #_EntitiyId : int
+ -isDead : bool
+ {abstract}+disInfo() : void
+}
+
+class MTankBehaviour{
+ (UnityOBJ) : GameObject
+ -GunIntervalTimer : GameTimer
+ +RotateTurret(float xRot, float yRot) : void
+ +Initialization() : void
+ +Shoot() : void
+ +Move(horizontal : float, vertical : float) : void
+}
+
+class MAttackTankBehaviour{
+ -fieldA : int
+ #fieldB : String
+ ~methodA() : void
+ +methodB() : String
+}
+class MDefenceTankBehaviour{
+ -fieldA : int
+ #fieldB : String
+ ~methodA() : void
+ +methodB() : String
+}
+
+class Shell{
+ -OnCollisionEnter(Collision collision) : void
+}
+
+
+}
+
+package View{
+class VGameView{
+}
+
+
+}
+
+package Presenter{
+class PEnemy{
+
+}
+
+class PPlayer{
+
+}
+
+class PViewManager{
+}
+
+}
+
+PPlayer <.. IDisplayable
+PPlayer <.up. TankPM
+PPlayer <.. MTankBehaviour
+
+PEnemy <.up. TankPM
+PEnemy <.. MTankBehaviour
+
+
+PViewManager <.. PPlayer
+PViewManager <.. PEnemy
+
+PViewManager <.. VGameView
+PPlayer <.. VGameView
+
+IDisplayable <|.. Vehicle
+IDamageable <|.. Vehicle
+Shell <.. IDamageable
+Vehicle <|-- MTankBehaviour
+ MTankBehaviour <|--MAttackTankBehaviour
+ MTankBehaviour <|-- MDefenceTankBehaviour
+@enduml
+```
 
 
