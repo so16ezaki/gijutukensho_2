@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 40a811053be7c7c4781d174c5a5a22c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -169,7 +169,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 40a811053be7c7c4781d174c5a5a22c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -441,8 +441,6 @@ MonoBehaviour:
   _CamPivot: {fileID: 0}
   _GunPivot: {fileID: 4859844612398071795}
   _TurretPivot: {fileID: 3602189176654954516}
-  _ColorGameObj: {fileID: 3170378714131532145}
-  _TargetMaterial: {fileID: 2100000, guid: 40a811053be7c7c4781d174c5a5a22c6, type: 2}
 --- !u!54 &4296821484057786093
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -533,7 +531,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 40a811053be7c7c4781d174c5a5a22c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -638,7 +636,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 40a811053be7c7c4781d174c5a5a22c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
